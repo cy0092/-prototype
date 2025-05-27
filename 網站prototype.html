@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>數位許願樹 - 環境部環境管理署</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .gov-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .gov-logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .gov-text {
+            color: #2e7d32;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .header-content h1 {
+            color: #2e7d32;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .header-content .subtitle {
+            color: #2e7d32;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .header-content .description {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background: #2e7d32;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #2e7d32;
+            padding: 12px 25px;
+            border: 2px solid #2e7d32;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1b5e20;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:hover {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .tree-illustration {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+
+        .tree {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #4caf50, #66bb6a);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tree::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 40px;
+            background: #8d6e63;
+            border-radius: 10px;
+        }
+
+        .wish-bubbles {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+        }
+
+        .bubble {
+            background: white;
+            padding: 6px 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-size: 0.8rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .bubble:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(3) {
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .priority-section {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .priority-title {
+            color: #2e7d32;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .priority-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .priority-card {
+            background: linear-gradient(135deg, #f1f8e9, #e8f5e8);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #2e7d32;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .priority-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.2);
+        }
+
+        .priority-card h3 {
+            color: #2e7d32;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .priority-card p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .age-groups {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .age-group {
+            background: #f5f5f5;
+            color: #666;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .age-group.active {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .age-group:hover {
+            border-color: #2e7d32;
+        }
+
+        .wish-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .step-indicator {
+            background: #2e7d32;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .form-section h3 {
+            color: #2e7d32;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .category-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            background: white;
+        }
+
+        .wish-content {
+            margin-bottom: 20px;
+        }
+
+        .wish-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .char-counter {
+            text-align: right;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .image-upload {
+            border: 2px dashed #e0e0e0;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload:hover {
+            border-color: #2e7d32;
+            background: #f8f9fa;
+        }
+
+        .upload-icon {
+            font-size: 2rem;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .wishes-section {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: #2e7d32;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 8px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .wishes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .wish-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #2e7d32;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .wish-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .wish-category {
+            color: #2e7d32;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .wish-text {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .wish-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .like-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .like-btn:hover {
+            color: #2e7d32;
+        }
+
+        .like-btn.liked {
+            color: #4caf50;
+        }
+
+    
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .success-message {
+            text-align: center;
+            color: #4caf50;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .tree-illustration {
+                margin-top: 20px;
+            }
+
+            .wishes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .age-groups {
+                justify-content: center;
+            }
+
+            .priority-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    
+        .flow-section {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .flow-title {
+            color: #2e7d32;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .flow-step-container {
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            gap: 20px;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap; 
+            gap: 10px; 
+        }
+
+        .flow-box {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            border: 2px solid #2e7d32;
+            transition: all 0.3s ease;
+            white-space: nowrap; 
+        }
+
+        .flow-box:hover {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: #2e7d32;
+            margin: 0 10px; 
+            transform: rotate(0deg); 
+        }
+
+        .flow-decision {
+            background: #ffe0b2; 
+            color: #ef6c00; 
+            border-color: #ef6c00;
+        }
+
+        .flow-decision:hover {
+            background: #ef6c00;
+            color: white;
+        }
+
+        .flow-line {
+            width: 2px;
+            height: 30px; 
+            background: #2e7d32;
+            margin: 0 auto; 
+        }
+
+        .flow-sub-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px; 
+        }
+
+        .flow-arrow.down {
+            transform: rotate(90deg); 
+            margin: 10px 0; 
+        }
+
+        @media (max-width: 768px) {
+            .flow-step {
+                flex-direction: column; 
+            }
+             .flow-arrow, .flow-arrow.down { 
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+<div class="flow-section">
+  <h2 class="flow-title">數位許願樹網站流程圖</h2>
+  <div class="flow-step-container">
+    <div class="flow-step">
+      <a href="#" onclick="window.scrollTo(0, 0)" class="flow-box">首頁</a>
+      <span class="flow-arrow">→</span>
+      <a href="#" onclick="showWishForm()" class="flow-box">我要許願</a>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">進入表單頁面</div>
+    </div>
+
+    <span class="flow-arrow down" style="font-size: 2rem;">↓</span>
+
+    <div class="flow-step">
+      <div class="flow-box">1. 選擇年齡類別</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">2. 選擇議題類別</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box">3. 填寫政策建議內容</div>
+    </div>
+
+    <span class="flow-arrow down" style="font-size: 2rem;">↓</span> 
+
+    <div class="flow-step" style="flex-direction: column;"> 
+        <div class="flow-box">4. 上傳相關圖片 (選填)</div>
+        <span class="flow-arrow down" style="font-size: 2rem;">↓</span> 
+        <div class="flow-box flow-decision">5. 選擇投稿方式</div>
+    </div>
+    
+    <span class="flow-arrow down" style="font-size: 2rem;">↓</span> 
+    <div style="display: flex; gap: 50px; margin-top: 0px;"> 
+        <div class="flow-sub-step">
+            <span class="flow-arrow down">↓</span> 
+            <div class="flow-box">匿名投稿</div>
+            <span class="flow-arrow down">↓</span>
+            <div class="flow-box">提交建議</div>
+        </div>
+        
+        <div class="flow-sub-step">
+            <span class="flow-arrow down">↓</span>
+            <div class="flow-box">非匿名投稿</div>
+            <span class="flow-arrow down">↓</span>
+            <div class="flow-box">輸入 Email</div>
+            <span class="flow-arrow down">↓</span>
+            <div class="flow-box">發送驗證碼</div>
+            <span class="flow-arrow down">↓</span>
+            <div class="flow-box">輸入驗證碼</div>
+            <span class="flow-arrow down">↓</span>
+            <div class="flow-box">提交建議</div>
+        </div>
+    </div>
+
+    <span class="flow-arrow down" style="font-size: 2rem; margin-top: 20px;">↓</span>
+    <div class="flow-step">
+      <div class="flow-box">成功提交畫面</div>
+    </div>
+
+    <span class="flow-arrow down" style="font-size: 2rem;">↓</span>
+
+    <div class="flow-step">
+      <a href="#" onclick="scrollToWishes()" class="flow-box">查看願望牆</a>
+    </div>
+  </div>
+</div>
+
+        <div class="header">
+            <div class="header-content">
+                <div class="gov-logo">
+                    <div style="width: 40px; height: 40px; background: #2e7d32; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">環</div>
+                    <div class="gov-text">環境部環境管理署</div>
+                </div>
+                <h1>數位許願樹</h1>
+                <div class="subtitle">共創永續環境未來</div>
+                <div class="description">
+                    邀請您分享對環境管理政策的建議與想法<br>
+                    讓我們一起為台灣的環境品質努力，建構更美好的生活環境
+                </div>
+                <div class="header-buttons">
+<button class="btn-secondary" onclick="document.querySelector('.flow-section').scrollIntoView({ behavior: 'smooth' })">網站流程圖</button>
+                    <button class="btn-primary" onclick="showWishForm()">我要許願</button>
+                    <button class="btn-secondary" onclick="scrollToWishes()">查看願望</button>
+                </div>
+            </div>
+            <div class="tree-illustration">
+                <div class="tree">
+                    <div class="wish-bubbles">
+                        <div class="bubble">空氣品質</div>
+                        <div class="bubble">水質保護</div>
+                        <div class="bubble">廢棄物管理</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="priority-section">
+            <div class="priority-title">重點環境議題</div>
+            <div class="priority-grid">
+                <div class="priority-card" onclick="selectCategory('空氣品質管理')">
+                      <h3>♻️ 廢棄物管理</h3>
+                </div>
+                <div class="priority-card" onclick="selectCategory('水質保護')">
+                    <h3>地下水汙染</h3>
+                </div>
+                <div class="priority-card" onclick="selectCategory('土壤保護')">
+                    <h3>🌱土壤汙染</h3>
+                </div>
+                <div class="priority-card" onclick="selectCategory('噪音管制')">
+                    <h3>🔇 環境衛生</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="age-groups">
+            <div class="age-group" data-age="children">兒童</div>
+            <div class="age-group active" data-age="youth">青年</div>
+            <div class="age-group" data-age="adult">成人</div>
+            <div class="age-group" data-age="senior">年長者</div>
+        </div>
+
+        <div id="ageGuideArea" style="font-size: 1.1rem; color: #2e7d32; margin-bottom: 20px; font-weight: bold;">同學好!你的創意與觀點是改變環境的力量！</div>
+<div class="wish-form" id="wishForm" style="display: none;">
+            <div class="form-header">
+                <div class="step-indicator">1</div>
+                <h2>政策建議 → 具體內容</h2>
+            </div>
+
+            <div class="form-section">
+                <h3>選擇年齡類別</h3>
+                <select class="category-select" id="ageCategory">
+                    <option value="">請選擇年齡類別</option> 
+                    <option value="children">兒童</option>
+                    <option value="youth" selected>青年</option> 
+                    <option value="adult">成人</option>
+                    <option value="senior">年長者</option>
+                </select>
+            </div>
+
+            <div class="form-section">
+                <h3>選擇議題類別</h3>
+                <select class="category-select" id="envCategory">
+                    <option value="">請選擇環境議題類別</option> 
+                    <option value="法規改善">法規改善</option> 
+                    <option value="廢棄物管理">廢棄物管理</option>
+                    <option value="地下水汙染">地下水汙染</option>
+                    <option value="土壤汙染">土壤汙染</option>
+                    <option value="環境衛生">環境衛生</option>
+                    <option value="...">...</option>
+                    <option value="其他環境議題">其他環境議題</option>
+                </select>
+            </div>
+
+            <div class="form-section">
+                <h3>政策建議內容</h3>
+                <div class="wish-content">
+                    <textarea 
+                        class="wish-textarea" 
+                        id="wishText"
+                        placeholder="請詳細描述您對環境管理政策的建議或改善方案"
+                        maxlength="800"
+                        oninput="updateCharCounter()"></textarea>
+                    <div class="char-counter" id="charCounter">0/800</div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>上傳相關圖片 (可選)</h3>
+                <div class="image-upload" onclick="document.getElementById('imageInput').click()">
+                    <div class="upload-icon">📷</div>
+                    <div>點擊上傳環境現況照片或相關資料</div>
+                    <div style="font-size: 0.9rem; color: #666; margin-top: 5px;">支援 JPG, PNG 格式，最大 10MB</div>
+                </div>
+                <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(this)">
+            </div>
+            
+            <div class="form-section">
+                <h3>投稿方式</h3>
+                <div style="margin-bottom: 15px;">
+                    <input type="checkbox" id="anonymousSubmission" name="submissionType" checked onchange="toggleEmailVerification()">
+                    <label for="anonymousSubmission">匿名投稿</label>
+                </div>
+                <div id="emailVerificationSection" style="display: none;">
+                    <label for="userEmail" style="display: block; margin-bottom: 5px; color: #333;">個人信箱驗證 (選填)</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="email" id="userEmail" class="category-select" placeholder="請輸入您的電子郵件" style="flex-grow: 1;">
+                        <button type="button" class="btn-secondary" onclick="sendVerificationCode()" style="padding: 10px 15px; border-radius: 10px; font-size: 0.9rem;">發送驗證碼</button>
+                    </div>
+                    <input type="text" id="verificationCode" class="category-select" placeholder="請輸入驗證碼" style="margin-top: 10px; display: none;">
+                </div>
+            </div>
+            <button class="btn-primary" onclick="submitWish()" style="width: 100%; margin-top: 20px;">
+                提交政策建議
+            </button>
+        </div>
+
+        <div class="wishes-section" id="wishesSection">
+            <div class="section-header">
+                <div class="section-title">環境政策許願牆</div>
+                <div class="filter-group">
+                    <select class="filter-select" id="sortFilter" onchange="sortWishes()">
+                        <option value="latest">最新建議</option>
+                        <option value="popular">最多支持</option>
+                        <option value="category">依議題分類</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="wishes-grid" id="wishesGrid">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="success-message">
+                <div style="font-size: 3rem; margin-bottom: 20px;">🌱</div>
+                <div>您的政策建議已成功提交！</div>
+                <div style="font-size: 1rem; color: #666; margin-top: 10px;">
+                    感謝您對環境保護的關心與參與<br>
+                    環境管理署將仔細評估每一項建議
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let wishes = [
+            {
+                category: '空氣品質管理',
+                date: '2025-05-25',
+                likes: 45,
+                ageGroup: 'adult',
+                isAnonymous: false 
+            },
+            {
+                category: '水質保護',
+                date: '2025-05-25',
+                likes: 32,
+                ageGroup: 'youth',
+                isAnonymous: true
+            },
+            {
+                category: '廢棄物管理',
+                date: '2025-05-25',
+                likes: 28,
+                ageGroup: 'adult',
+                isAnonymous: false
+            },
+            {
+                category: '土壤保護',
+                date: '2025-05-25',
+                likes: 19,
+                ageGroup: 'senior',
+                isAnonymous: true
+            },
+            {
+                category: '噪音管制',
+                date: '2025-05-25',
+                likes: 25,
+                ageGroup: 'adult',
+                isAnonymous: false
+            },
+            {
+                category: '環境教育',
+                date: '2025-05-25',
+                likes: 38,
+                ageGroup: 'youth',
+                isAnonymous: true
+            }
+        ];
+
+        let currentAgeFilter = 'youth'; 
+
+        const ageGuideText = {
+            children: " 小朋友，你對環境有什麼想法嗎？歡迎畫圖或寫下來和我們分享！",
+            youth: "同學好!你的創意與觀點是改變環境的力量！",
+            adult: " 您的寶貴建議是推動政策的關鍵力量！",
+            senior: " 感謝您對環境的關注，請留下寶貴建議～"
+        };
+
+        function selectCategory(category) {
+            showWishForm();
+            document.getElementById('envCategory').value = category;
+        }
+
+        function showWishForm() {
+            document.getElementById('wishForm').style.display = 'block';
+            document.getElementById('wishForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToWishes() {
+            document.getElementById('wishesSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateCharCounter() {
+            const textarea = document.getElementById('wishText');
+            const counter = document.getElementById('charCounter');
+            counter.textContent = `${textarea.value.length}/800`;
+        }
+
+        function handleImageUpload(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('檔案大小不能超過 10MB');
+                    return;
+                }
+                
+                const uploadArea = input.parentElement;
+                uploadArea.innerHTML = `
+                    <div class="upload-icon">✅</div>
+                    <div>圖片已上傳: ${file.name}</div>
+                `;
+            }
+        }
+
+        function toggleEmailVerification() {
+            const anonymousCheckbox = document.getElementById('anonymousSubmission');
+            const emailVerificationSection = document.getElementById('emailVerificationSection');
+            const userEmail = document.getElementById('userEmail');
+            const verificationCodeInput = document.getElementById('verificationCode');
+
+            if (anonymousCheckbox.checked) {
+                emailVerificationSection.style.display = 'none';
+                userEmail.value = ''; 
+                verificationCodeInput.style.display = 'none'; 
+                verificationCodeInput.value = ''; 
+            } else {
+                emailVerificationSection.style.display = 'block';
+            }
+        }
+
+        function sendVerificationCode() {
+            const userEmail = document.getElementById('userEmail').value.trim();
+            const verificationCodeInput = document.getElementById('verificationCode');
+
+            if (userEmail === "") {
+                alert('請輸入您的電子郵件地址');
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail)) {
+                alert('請輸入有效的電子郵件地址');
+                return;
+            }
+
+            alert(`驗證碼已發送至 ${userEmail}。請檢查您的信箱。`);
+            verificationCodeInput.style.display = 'block'; 
+        }
+
+        function submitWish() {
+            const anonymousCheckbox = document.getElementById('anonymousSubmission');
+            const userEmail = document.getElementById('userEmail').value.trim();
+            const verificationCode = document.getElementById('verificationCode').value.trim();
+
+            if (!anonymousCheckbox.checked) { 
+                if (userEmail === "") {
+                    alert('請輸入您的電子郵件地址');
+                    return;
+                }
+                if (verificationCode === "") {
+                    alert('請輸入驗證碼');
+                    return;
+                }
+            }
+
+            const ageCategory = document.getElementById('ageCategory').value;
+            const envCategory = document.getElementById('envCategory').value;
+            const wishText = document.getElementById('wishText').value.trim();
+
+            if (!ageCategory) {
+                alert('請選擇年齡類別');
+                return;
+            }
+
+            if (!envCategory) {
+                alert('請選擇環境議題類別');
+                return;
+            }
+
+            if (!wishText) {
+                alert('請輸入政策建議內容');
+                return;
+            }
+
+            if (wishText.length < 20) {
+                alert('政策建議內容至少需要20個字，請提供更詳細的建議');
+                return;
+            }
+
+            const newWish = {
+                category: envCategory,
+                text: wishText,
+                date: new Date().toISOString().split('T')[0],
+                likes: 0,
+                ageGroup: ageCategory,
+                isAnonymous: anonymousCheckbox.checked 
+            };
+
+            wishes.unshift(newWish);
+            renderWishes();
+
+            document.getElementById('envCategory').value = '';
+            document.getElementById('wishText').value = '';
+            document.getElementById('charCounter').textContent = '0/800';
+            document.getElementById('wishForm').style.display = 'none';
+
+            anonymousCheckbox.checked = true; 
+            toggleEmailVerification(); 
+            document.getElementById('userEmail').value = '';
+            document.getElementById('verificationCode').value = '';
+
+            document.getElementById('successModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+        }
+
+        function toggleLike(button) {
+            const likeCount = button.querySelector('span:last-child');
+            const currentLikes = parseInt(likeCount.textContent);
+            
+            if (button.classList.contains('liked')) {
+                button.classList.remove('liked');
+                likeCount.textContent = currentLikes - 1;
+            } else {
+                button.classList.add('liked');
+                likeCount.textContent = currentLikes + 1;
+            }
+        }
+
+        function sortWishes() {
+            const sortType = document.getElementById('sortFilter').value;
+            
+            if (sortType === 'popular') {
+                wishes.sort((a, b) => b.likes - a.likes);
+            } else if (sortType === 'latest') {
+                wishes.sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else if (sortType === 'category') {
+                wishes.sort((a, b) => a.category.localeCompare(b.category));
+            }
+            
+            renderWishes();
+        }
+
+        function renderWishes() {
+            const grid = document.getElementById('wishesGrid');
+            const filteredWishes = currentAgeFilter === 'all' 
+                ? wishes 
+                : wishes.filter(wish => wish.ageGroup === currentAgeFilter);
+
+            grid.innerHTML = filteredWishes.map(wish => `
+                <div class="wish-card">
+                    <div class="wish-category">${wish.category}</div>
+                    <div class="wish-text">${wish.text}</div>
+                    <div class="wish-meta">
+                        <span>${wish.date}</span>
+                        <button class="like-btn" onclick="toggleLike(this)">
+                            <span>👍</span>
+                            <span>${wish.likes}</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.querySelectorAll('.age-group').forEach(group => {
+            group.addEventListener('click', function() {
+                document.querySelectorAll('.age-group').forEach(g => g.classList.remove('active'));
+                this.classList.add('active');
+                currentAgeFilter = this.dataset.age;
+                document.getElementById('ageCategory').value = currentAgeFilter;
+                const guideArea = document.getElementById('ageGuideArea');
+                if (guideArea) {
+                    guideArea.innerText = ageGuideText[currentAgeFilter] || "";
+                }
+                
+                renderWishes();
+            });
+        });
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('successModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            toggleEmailVerification();
+        });
+
+        renderWishes();
+    </script>
+
+</body>
+</html>
